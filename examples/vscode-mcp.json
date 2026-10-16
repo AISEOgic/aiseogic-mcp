@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "aiseogic": {
+      "type": "http",
+      "url": "https://app.aiseogic.com/mcp"
+    }
+  }
+}
