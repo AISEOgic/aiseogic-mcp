@@ -41,12 +41,17 @@ Copy the matching file from [`examples/`](examples/).
 
 | Tool | What it does | Changes anything? |
 |---|---|---|
-| `start_audit` | Starts an audit of a public website (uses one audit from your allowance) | Yes — starts an audit |
+| `start_audit` | Starts an audit of a public website (uses one audit from your allowance). `scope`: a single page (default) or the full site (Pro/Agency) | Yes — starts an audit |
 | `get_audit` | Status, scores and top issues of an audit | No |
+| `get_quick_wins` | The fixes that give the most score for the least effort, ranked by points per minute | No |
 | `get_fix_plan` | Prioritised list of fixes with evidence and the detected platform | No |
 | `get_fix_details` | The code snippet, file location and steps to fix one issue (WordPress guidance uses WordPress core and free plugins only) | No |
+| `compare_audits` | Score changes, issues fixed, new and still open between two audits of the same site, plus score history | No |
+| `verify_fix` | "Did my fix work?" — compares with a newer audit, or starts a re-check if there is none | Yes — may start an audit |
 | `list_my_audits` | Your recent audits | No |
 | `get_account` | Your plan and how many audits you have left | No |
+
+The connector also offers ready-made **prompts** (commands in apps that support them): *Audit a website and plan the fixes*, *Weekly SEO check*, *Check whether my fixes worked* and *Fastest improvements for an audit*. Results are returned as readable text and as structured data.
 
 Details, scopes and example prompts: [`TOOLS.md`](TOOLS.md).
 
