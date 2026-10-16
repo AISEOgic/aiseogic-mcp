@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.YOUR-GITHUB-USERNAME/aiseogic",
+  "description": "Run AISEOgic SEO, AI SEO, GEO and AEO website audits and get fix code from your AI assistant.",
+  "version": "1.0.0",
+  "websiteUrl": "https://aiseogic.com",
+  "repository": {
+    "url": "https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://app.aiseogic.com/mcp"
+    }
+  ]
+}
