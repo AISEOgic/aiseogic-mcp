@@ -61,15 +61,14 @@ Copy the matching file from [`examples/`](examples/).
 | `mark_fix_status` | Records a fix as todo · in progress · done · skipped | Yes — saves your progress |
 | `verify_fix` | "Did my fixes work?" — compares with a newer audit, or starts a re-check | Yes — may start an audit |
 
-**AI visibility and page checks**
+**Page checks**
 
 | Tool | What it does | Changes anything? |
 |---|---|---|
-| `check_ai_visibility` | Asks AI engines your customers' questions: are you mentioned or cited, at what position, who else is named, share of voice. Paid plans; only engines set up on the service are used and the rest are reported as not available | No |
-| `test_ai_bot_access` | Which AI crawlers (ChatGPT, Perplexity, Claude, Gemini, Apple…) your robots.txt lets in | No |
+| `test_ai_bot_access` | Which AI crawlers (ChatGPT, Perplexity, Claude, Gemini, Apple…) your robots.txt lets in, for the site or a specific page or folder | No |
 | `analyze_answer_blocks` | Question headings and the answers under them — short and direct enough for answer engines? | No |
 | `check_entity_consistency` | Is your brand name used consistently on the page (title, schema, logo, footer, profiles)? | No |
-| `check_citation_readiness` | Seven content signals that make a page easier for AI assistants to cite | No |
+| `check_citation_readiness` | 0-100 score for how easy a page is to trust and cite (author, dates, sources, facts, evidence, trust pages, Article schema); same scoring as the free checker on aiseogic.com | No |
 | `generate_schema` | JSON-LD built only from details really found on the page; anything missing is listed, never invented | No |
 
 **Account**
@@ -80,7 +79,7 @@ Copy the matching file from [`examples/`](examples/).
 | `get_usage` | Credits used and left, limits and when the daily allowance resets | No |
 | `estimate_audit_cost` | What an audit would cost and whether you can run it now — free, starts nothing | No |
 
-The connector also offers ready-made **prompts** (commands in apps that support them): *Audit a website and plan the fixes*, *Weekly SEO check*, *Check whether my fixes worked*, *Fastest improvements for an audit*, *Am I visible in AI answers?*, *Audit, fix and verify* and *Check the cost first*. Results are returned as readable text and as structured data. A health check is available at `/mcp/health`.
+The connector also offers ready-made **prompts** (commands in apps that support them): *Audit a website and plan the fixes*, *Weekly SEO check*, *Check whether my fixes worked*, *Fastest improvements for an audit*, *Audit, fix and verify* and *Check the cost first*. Results are returned as readable text and as structured data. A health check is available at `/mcp/health`.
 
 Details, permissions and example prompts: [`TOOLS.md`](TOOLS.md).
 
