@@ -23,14 +23,13 @@ All tools act on **your own** AISEOgic account. Access is granted per permission
 | `mark_fix_status` | `audits:run` | No | `fix_id`, `status` (`todo`, `in_progress`, `done`, `skipped`), optional `note`. Returns the progress for that audit. |
 | `verify_fix` | `audits:run` | No | `audit_id`, optional `issue_ids`. Compares with a newer audit of the same site; if none exists it starts one (uses one audit) and returns the result when called again shortly after. |
 
-## AI visibility and page checks
+## Page checks
 | Tool | Permission | Read-only | Notes |
 |---|---|---|---|
-| `check_ai_visibility` | `audits:read` | Yes | `url`, `prompts` (1–5 questions), optional `brand`, `competitors`, `engines`. Paid plans. Reports per question and engine whether you are mentioned, cited (only when the engine provides sources — otherwise unknown) and at what position, who else is named, and share of voice. Only engines set up on the service are used; others are listed as not available — nothing is simulated. Results are cached for 24 hours. |
-| `test_ai_bot_access` | `audits:read` | Yes | `url`. Reads robots.txt and reports, for each known AI crawler, whether it may fetch the site. Does not test firewalls or CDN bot protection. |
+| `test_ai_bot_access` | `audits:read` | Yes | `url`, optional `path`. Reads robots.txt and reports, for each known AI crawler (and Googlebot/Bingbot), whether it may fetch that page or path and which rule decided it. Same matching as the free AI Crawler Access Checker on aiseogic.com. Does not test firewalls or CDN bot protection. |
 | `analyze_answer_blocks` | `audits:read` | Yes | `url`. Question headings, the answer under each (format, length), snippet-readiness and FAQ markup. |
 | `check_entity_consistency` | `audits:read` | Yes | `brand`, `url`. Compares your brand name with the names the page uses for itself; lists mismatches and missing entity signals. |
-| `check_citation_readiness` | `audits:read` | Yes | `url`. Seven content signals (Q&A, lists, statistics, sources, dates, definitions, structured data) with a score and what to add. |
+| `check_citation_readiness` | `audits:read` | Yes | `url`. 0-100 score from seven checks (named author, dates, outbound sources, checkable facts, first-hand evidence, About/Contact pages, Article schema) minus a promotional-claims penalty, with what to improve first. Same scoring as the free checker on aiseogic.com. |
 | `generate_schema` | `audits:read` | Yes | `url`, `type` (`Organization`, `WebSite`, `WebPage`, `Article`, `FAQPage`, `BreadcrumbList`, `LocalBusiness`). JSON-LD from details found on the page; missing required details are listed, not invented. |
 
 ## Account
@@ -43,15 +42,12 @@ All tools act on **your own** AISEOgic account. Access is granted per permission
 `platform` (for `get_fix_plan`, `get_fix_details`) accepts: `wordpress`, `nextjs`, `netlify`, `vercel`, `apache`, `nginx`, `static`. `get_fix_patch` accepts `wordpress`, `nextjs`, `shopify`, `html`.
 
 ## Prompts
-`full_audit_and_fix_plan`, `weekly_seo_check`, `did_my_fix_work`, `quick_wins`, `ai_visibility_check`, `audit_fix_verify`, `estimate_then_audit` — ready-made starting points that appear as commands in apps that support MCP prompts.
+`full_audit_and_fix_plan`, `weekly_seo_check`, `did_my_fix_work`, `quick_wins`, `audit_fix_verify`, `estimate_then_audit` — ready-made starting points that appear as commands in apps that support MCP prompts.
 
 ## Example prompts
 
 **Quick audit**
 > Use AISEOgic to audit https://yourwebsite.com. Show my scores, the 5 biggest problems, and a step-by-step fix plan ordered by impact.
-
-**Am I visible in AI answers?**
-> Use AISEOgic to check whether AI assistants mention my brand "YOUR BRAND" (https://yourwebsite.com). Test these questions: "best [your category] tools", "[your category] for small business", "alternatives to [competitor]". Tell me who gets mentioned instead of me and what to change.
 
 **Audit, fix, verify**
 > Use AISEOgic to audit https://yourwebsite.com. Take the top 3 fixes, give me the ready-to-paste code for my platform (WordPress / Next.js / Shopify / plain HTML), and after I say "done", re-check each fix and tell me which ones passed.
@@ -67,4 +63,4 @@ All tools act on **your own** AISEOgic account. Access is granted per permission
 
 ## Limits
 
-Audit allowance depends on your plan (Free accounts can run a limited number of audits through the connector and see the top issues; paid plans get more and full results). Some features — such as AI-visibility checks — are for paid plans, and requests are rate-limited per account. `get_usage` shows your numbers. See https://app.aiseogic.com/pricing.
+Audit allowance depends on your plan (Free accounts can run a limited number of audits through the connector and see the top issues; paid plans get more and full results). Requests are rate-limited per account. `get_usage` shows your numbers. See https://app.aiseogic.com/pricing.
