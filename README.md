@@ -39,25 +39,54 @@ Copy the matching file from [`examples/`](examples/).
 
 ## What the assistant can do
 
+**Audit and understand**
+
 | Tool | What it does | Changes anything? |
 |---|---|---|
 | `start_audit` | Starts an audit of a public website (uses one audit from your allowance). `scope`: a single page (default) or the full site (Pro/Agency) | Yes — starts an audit |
-| `get_audit` | Status, scores and top issues of an audit | No |
-| `get_quick_wins` | The fixes that give the most score for the least effort, ranked by points per minute | No |
-| `get_fix_plan` | Prioritised list of fixes with evidence and the detected platform | No |
-| `get_fix_details` | The code snippet, file location and steps to fix one issue (WordPress guidance uses WordPress core and free plugins only) | No |
-| `compare_audits` | Score changes, issues fixed, new and still open between two audits of the same site, plus score history | No |
-| `verify_fix` | "Did my fix work?" — compares with a newer audit, or starts a re-check if there is none | Yes — may start an audit |
+| `get_audit` | Status (`queued` · `running` · `done` · `failed`), scores and top issues | No |
 | `list_my_audits` | Your recent audits | No |
+| `compare_audits` | Score changes, issues fixed, new and unchanged between two audits of a site | No |
+| `list_domains` · `get_domain_history` | The websites you have audited and how a site's scores changed over time | No |
+
+**Fix**
+
+| Tool | What it does | Changes anything? |
+|---|---|---|
+| `get_fix_plan` | Prioritised fixes with evidence and the detected platform | No |
+| `get_quick_wins` | The fixes that give the most score for the least effort | No |
+| `get_fix_details` | Where one fix goes and the code, for the detected platform | No |
+| `get_fix_patch` | Validated, ready-to-paste code for **WordPress, Next.js, Shopify or plain HTML** | No |
+| `recheck_fix` | Re-tests one issue on the live page (about a second, no audit used) | No |
+| `mark_fix_status` | Records a fix as todo · in progress · done · skipped | Yes — saves your progress |
+| `verify_fix` | "Did my fixes work?" — compares with a newer audit, or starts a re-check | Yes — may start an audit |
+
+**AI visibility and page checks**
+
+| Tool | What it does | Changes anything? |
+|---|---|---|
+| `check_ai_visibility` | Asks AI engines your customers' questions: are you mentioned or cited, at what position, who else is named, share of voice. Paid plans; only engines set up on the service are used and the rest are reported as not available | No |
+| `test_ai_bot_access` | Which AI crawlers (ChatGPT, Perplexity, Claude, Gemini, Apple…) your robots.txt lets in | No |
+| `analyze_answer_blocks` | Question headings and the answers under them — short and direct enough for answer engines? | No |
+| `check_entity_consistency` | Is your brand name used consistently on the page (title, schema, logo, footer, profiles)? | No |
+| `check_citation_readiness` | Seven content signals that make a page easier for AI assistants to cite | No |
+| `generate_schema` | JSON-LD built only from details really found on the page; anything missing is listed, never invented | No |
+
+**Account**
+
+| Tool | What it does | Changes anything? |
+|---|---|---|
 | `get_account` | Your plan and how many audits you have left | No |
+| `get_usage` | Credits used and left, limits and when the daily allowance resets | No |
+| `estimate_audit_cost` | What an audit would cost and whether you can run it now — free, starts nothing | No |
 
-The connector also offers ready-made **prompts** (commands in apps that support them): *Audit a website and plan the fixes*, *Weekly SEO check*, *Check whether my fixes worked* and *Fastest improvements for an audit*. Results are returned as readable text and as structured data.
+The connector also offers ready-made **prompts** (commands in apps that support them): *Audit a website and plan the fixes*, *Weekly SEO check*, *Check whether my fixes worked*, *Fastest improvements for an audit*, *Am I visible in AI answers?*, *Audit, fix and verify* and *Check the cost first*. Results are returned as readable text and as structured data. A health check is available at `/mcp/health`.
 
-Details, scopes and example prompts: [`TOOLS.md`](TOOLS.md).
+Details, permissions and example prompts: [`TOOLS.md`](TOOLS.md).
 
 ## Fixing the issues
 
-AISEOgic tells the assistant **what** to fix and gives ready-made code for common problems (security headers, `llms.txt`, schema markup, meta tags, performance). The assistant cannot reach your server on its own:
+AISEOgic tells the assistant **what** to fix and gives ready-made, validated code for common problems (security headers, `llms.txt`, `robots.txt` rules, schema markup, meta tags, performance) for WordPress, Next.js, Shopify and plain HTML. After you apply a change, the assistant can re-test just that fix. The assistant cannot reach your server on its own:
 
 - In **Claude.ai / ChatGPT chat** it gives you the snippet and tells you where to put it.
 - In **Claude Code, Cursor or another coding agent opened in your project**, it can apply the change to your files directly, using your own access.
@@ -67,8 +96,8 @@ AISEOgic never asks for, receives or stores your server, SSH or hosting credenti
 
 ## Privacy and security in short
 
-- The connector can: start audits of public websites you give it, read your audit results, and read your plan and audit allowance.
-- It **cannot**: change your password, billing, or any account setting, or read other people's data.
+- The connector can: start audits of public websites you give it, read your audit results, check public pages you point it at, and read your plan and audit allowance.
+- It **cannot**: change your password, billing, or any account setting, or read other people's data. The only things it can save are your own fix-progress notes.
 - You can disconnect at any time from **Dashboard → Connect to AI** in the app.
 - Access tokens are short-lived and stored hashed; every sign-in needs your explicit approval on the AISEOgic consent screen.
 
