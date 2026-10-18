@@ -18,7 +18,7 @@ All tools act on **your own** AISEOgic account. Access is granted per permission
 | `get_fix_plan` | `audits:read` | Yes | `audit_id`, optional `platform`. Fixes ordered by impact and effort; each has an `issue_id`, evidence and whether ready-made code exists. |
 | `get_quick_wins` | `audits:read` | Yes | `audit_id`, optional `limit` (1–15). Issues ranked by score points per minute of estimated effort. |
 | `get_fix_details` | `audits:read` | Yes | `audit_id`, `issue_id`, optional `platform`. Where the change goes, a snippet and steps. |
-| `get_fix_patch` | `audits:read` | Yes | `fix_id` (`audit_id:issue_id`, both from `get_fix_plan`) and `platform` (`wordpress`, `nextjs`, `shopify`, `html`). Ready-to-paste output (headers, `robots.txt` rules, `llms.txt`, meta tags, JSON-LD…) that is checked to be valid before it is returned. Where a platform cannot do something (for example Shopify cannot set response headers) it says so and gives the workaround. |
+| `get_fix_patch` | `audits:read` | Yes | `fix_id` (`audit_id:issue_id`, both from `get_fix_plan`) and `platform` (`wordpress`, `shopify`, `nextjs`, `wix`, `squarespace`, `webflow`, `ghost`, `drupal`, `joomla`, `magento`, `laravel`, `django`, `rails`, `express`, or `html` for a plain site). Ready-to-paste output (headers, `robots.txt` rules, `llms.txt`, meta tags, JSON-LD…) that is checked to be valid before it is returned. Where a platform cannot do something (for example Shopify cannot set response headers) it says so and gives the workaround. |
 | `recheck_fix` | `audits:read` | Yes | `fix_id`. Re-tests only that issue on the live page: `resolved`, `still_failing` (with the reason) or `not_checkable` (speed measurements need a full audit). Uses no audit. |
 | `mark_fix_status` | `audits:run` | No | `fix_id`, `status` (`todo`, `in_progress`, `done`, `skipped`), optional `note`. Returns the progress for that audit. |
 | `verify_fix` | `audits:run` | No | `audit_id`, optional `issue_ids`. Compares with a newer audit of the same site; if none exists it starts one (uses one audit) and returns the result when called again shortly after. |
@@ -39,7 +39,7 @@ All tools act on **your own** AISEOgic account. Access is granted per permission
 | `get_usage` | `account:read` | Yes | Credits used and left, limits, reset date, recent activity. |
 | `estimate_audit_cost` | `account:read` | Yes | `url`, optional `depth`. Credits, pages and time for an audit and whether you can run it now. Starts nothing. |
 
-`platform` (for `get_fix_plan`, `get_fix_details`) accepts: `wordpress`, `nextjs`, `netlify`, `vercel`, `apache`, `nginx`, `static`. `get_fix_patch` accepts `wordpress`, `nextjs`, `shopify`, `html`.
+`platform` (for `get_fix_plan`, `get_fix_details`) accepts: `wordpress`, `nextjs`, `netlify`, `vercel`, `apache`, `nginx`, `static`, `shopify`, `wix`, `squarespace`, `webflow`, `ghost`, `drupal`, `joomla`, `magento`, `laravel`, `django`, `rails`, `express`. `get_fix_patch` accepts `wordpress`, `shopify`, `nextjs`, `wix`, `squarespace`, `webflow`, `ghost`, `drupal`, `joomla`, `magento`, `laravel`, `django`, `rails`, `express`, `html`. On hosted builders (Shopify, Wix, Squarespace, Webflow) response headers and server settings are not editable; those fixes are marked "not applicable" with the workaround.
 
 ## Prompts
 `full_audit_and_fix_plan`, `weekly_seo_check`, `did_my_fix_work`, `quick_wins`, `audit_fix_verify`, `estimate_then_audit` — ready-made starting points that appear as commands in apps that support MCP prompts.
